@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jobringer - Find Your Dream Job</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: #f9f9f9;
+        color: #333;
+      }
+
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 40px;
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .logo {
+        font-size: 24px;
+        font-weight: 700;
+        color: #4a90e2;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+        gap: 30px;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #333;
+        font-weight: 600;
+        transition: color 0.3s ease;
+      }
+
+      nav a:hover {
+        color: #4a90e2;
+      }
+
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+      }
+
+      .bar {
+        height: 3px;
+        width: 25px;
+        background-color: #333;
+        margin: 4px 0;
+        transition: 0.4s;
+      }
+
+      .nav-links {
+        display: flex;
+      }
+
+      .hero {
+        padding: 80px 40px 60px;
+        background-color: #eef4ff;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #1e2a38;
+      }
+
+      .hero p {
+        font-size: 20px;
+        margin-bottom: 40px;
+        color: #4a4a4a;
+      }
+
+      .search-bar {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        max-width: 700px;
+        margin: 0 auto;
+        flex-wrap: wrap;
+      }
+
+      .search-bar input {
+        flex: 1;
+        padding: 15px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      .search-bar button {
+        padding: 15px 30px;
+        font-size: 16px;
+        background-color: #4a90e2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .search-bar button:hover {
+        background-color: #357ac9;
+      }
+
+      .buttons {
+        margin-top: 30px;
+      }
+
+      .buttons a {
+        text-decoration: none;
+        padding: 12px 24px;
+        margin: 0 10px;
+        background-color: #fff;
+        color: #4a90e2;
+        border: 2px solid #4a90e2;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+
+      .buttons a:hover {
+        background-color: #4a90e2;
+        color: #fff;
+      }
+
+      .section {
+        padding: 60px 40px;
+        background-color: #fff;
+      }
+
+      .section h2 {
+        font-size: 32px;
+        margin-bottom: 40px;
+        text-align: center;
+        color: #1e2a38;
+      }
+
+      .job-slider {
+        display: flex;
+        gap: 20px;
+        overflow-x: auto;
+        padding-bottom: 20px;
+        scroll-snap-type: x mandatory;
+        animation: scrollJobs 40s linear infinite;
+      }
+
+      @keyframes scrollJobs {
+        0% {
+          transform: translateX(0);
+        }
+        100% {
+          transform: translateX(-50%);
+        }
+      }
+
+      .job-slider-wrapper {
+        overflow: hidden;
+        position: relative;
+      }
+
+      .job-slider-track {
+        display: flex;
+        gap: 20px;
+        width: max-content;
+      }
+
+      .job-card {
+        min-width: 250px;
+        background-color: #f1f1f1;
+        padding: 20px;
+        border-radius: 10px;
+        scroll-snap-align: start;
+        flex: 0 0 auto;
+      }
+
+      .job-card h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+
+      .job-card p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      .companies {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+      }
+
+      .company {
+        width: 200px;
+        background-color: #eef4ff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .numbers {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+      }
+
+      .number-box h3 {
+        font-size: 28px;
+        color: #4a90e2;
+      }
+
+      .number-box p {
+        font-size: 16px;
+        color: #555;
+      }
+
+      footer {
+        padding: 20px;
+        background-color: #1e2a38;
+        color: #fff;
+        text-align: center;
+      }
+
+      /* ----------------- Responsive Media Queries ----------------- */
+      @media (max-width: 768px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 20px;
+        }
+
+        .menu-toggle {
+          display: flex;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          width: 100%;
+          display: none;
+        }
+
+        .nav-links.active {
+          display: flex;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+        }
+
+        .hero {
+          padding: 60px 20px 40px;
+        }
+
+        .hero h1 {
+          font-size: 32px;
+        }
+
+        .search-bar {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .search-bar input,
+        .search-bar button {
+          width: 100%;
+          border-radius: 5px;
+        }
+
+        .buttons a {
+          display: block;
+          margin: 10px 0;
+          text-align: center;
+        }
+
+        .job-slider {
+          animation: none;
+          overflow-x: auto;
+        }
+
+        .job-card {
+          width: 90%;
+        }
+
+        .companies {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .company {
+          width: 80%;
+        }
+
+        .numbers {
+          flex-direction: column;
+          gap: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">Jobringer</div>
+      <div class="menu-toggle" id="menu-toggle">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+      <nav class="nav-links" id="nav-links">
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#jobs">Jobs</a></li>
+          <li><a href="#companies">Companies</a></li>
+          <li><a href="#stats">Stats</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section class="hero" id="hero">
+      <h1>Find Your Dream Job Today</h1>
+      <p>Explore thousands of job opportunities with top companies.</p>
+      <div class="search-bar">
+        <input type="text" placeholder="Job title or keyword" />
+        <button>Search</button>
+      </div>
+      <div class="buttons">
+        <a href="#">Post a Job</a>
+        <a href="#">Register Now</a>
+      </div>
+    </section>
+
+    <section class="section" id="jobs">
+      <h2>Featured Jobs</h2>
+      <div class="job-slider">
+        <div class="job-card"><h3>Software Engineer</h3><p>Company A - Bangalore</p></div>
+        <div class="job-card"><h3>Data Analyst</h3><p>Company B - Mumbai</p></div>
+        <div class="job-card"><h3>UI/UX Designer</h3><p>Company C - Delhi</p></div>
+        <div class="job-card"><h3>Project Manager</h3><p>Company D - Hyderabad</p></div>
+        <div class="job-card"><h3>QA Tester</h3><p>Company E - Pune</p></div>
+        <div class="job-card"><h3>Business Analyst</h3><p>Company F - Chennai</p></div>
+        <div class="job-card"><h3>Cloud Engineer</h3><p>Company G - Noida</p></div>
+        <div class="job-card"><h3>DevOps Engineer</h3><p>Company H - Gurgaon</p></div>
+      </div>
+    </section>
+
+    <section class="section" id="companies">
+      <h2>Top Companies</h2>
+      <div class="companies">
+        <div class="company">Google</div>
+        <div class="company">Amazon</div>
+        <div class="company">Flipkart</div>
+        <div class="company">Infosys</div>
+        <div class="company">Wipro</div>
+      </div>
+    </section>
+
+    <section class="section" id="stats">
+      <h2>Platform Stats</h2>
+      <div class="numbers">
+        <div class="number-box">
+          <h3>5,000+</h3>
+          <p>Jobs Posted</p>
+        </div>
+        <div class="number-box">
+          <h3>2,000+</h3>
+          <p>Companies</p>
+        </div>
+        <div class="number-box">
+          <h3>50,000+</h3>
+          <p>Registered Users</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2025 Jobringer. All rights reserved.
+    </footer>
+
+    <script>
+      const menuToggle = document.getElementById('menu-toggle');
+      const navLinks = document.getElementById('nav-links');
+
+      menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    </script>
+  </body>
+</html>
